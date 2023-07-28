@@ -1,21 +1,41 @@
 import React from "react";
-
+import job3 from "./Images/job3.jpeg";
+import { Link } from "react-router-dom";
 function About() {
   return (
-    <div className="container-xxl bg-white sticky-top" style={{}}>
-      <h3
-        className=" text-center"
+    <div className="container-xxl bg-white" style={{ marginTop: 85 }}>
+      <div
+        className="row text-light"
         style={{
-          backgroundColor: "#dfbfb1",
-          fontSize: "70px",
-          height: 180,
-          paddingTop: "40px",
-          fontWeight: "bolder",
+          backgroundImage: `url(${job3})`,
+          backgroundSize: "100% 100%",
+          height: "500px",
+          position: "relative",
         }}
       >
-        About Job Portal
-      </h3>
-      <div className="container" style={{}}>
+        <div
+          className="col-lg-8 position-absolute d-flex flex-column justify-content-center"
+          style={{
+            top: "30%",
+            left: "12%",
+            borderLeft: "20px solid #139c49",
+            paddingLeft: "40px",
+            paddingTop: "40px",
+            paddingBottom: "40px",
+            // borderTop: "20px solid",
+          }}
+        >
+          <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+            About
+          </h1>
+          <div className="d-flex">
+            <Link className="nav-link">Home </Link> /
+            <Link className="nav-link">About</Link> /
+            <Link className="nav-link">Pages</Link>
+          </div>
+        </div>
+      </div>
+      <div className="container" style={{ marginTop: "20px" }}>
         <p className="">
           Welcome to our blog, where we explore the limitless potential of
           positive thinking and its profound impact on our lives. In a world
@@ -64,6 +84,9 @@ function About() {
           positive environment
         </p>
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
     </div>
   );
 }

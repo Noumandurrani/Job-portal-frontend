@@ -2,9 +2,15 @@ import React, { useRef } from "react";
 import job2 from "./Components/Images/job2.jpeg";
 import job3 from "./Components/Images/job3.jpeg";
 import { Carousel } from "react-bootstrap";
+import JobsByCategory from "./Components/HomeComp/JobsByCategory";
+import JobsListing from "./Components/HomeComp/JobsListing";
+import CarouselClients from "./Components/HomeComp/CarouselClients";
 function Home() {
   return (
-    <div className="container-xxxl bg-white sticky-top" style={{}}>
+    <div
+      className="container-xxxl bg-white" ////sticky-top bg-white
+      style={{ marginTop: 85 }}
+    >
       {/* ///////////////////////////Carousel///////////////////////////////////// */}
       <Carousel
         className="carousel"
@@ -42,7 +48,7 @@ function Home() {
           ></i>
         }
       >
-        <Carousel.Item className="slide" interval={1500}>
+        <Carousel.Item className="slide" interval={500}>
           <div
             className="row text-light"
             style={{
@@ -56,12 +62,12 @@ function Home() {
               className="col-lg-8 position-absolute d-flex flex-column justify-content-center"
               style={{
                 top: "12%",
-                left: "15%",
+                left: "10%",
                 borderLeft: "20px solid #139c49",
                 paddingLeft: "40px",
                 paddingTop: "40px",
                 paddingBottom: "40px",
-                borderTop: "20px solid",
+                // borderTop: "20px solid",
               }}
             >
               <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
@@ -102,7 +108,7 @@ function Home() {
                 paddingLeft: "40px",
                 paddingTop: "40px",
                 paddingBottom: "40px",
-                borderTop: "20px solid",
+                // borderTop: "20px solid",
               }}
             >
               <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
@@ -200,6 +206,11 @@ function Home() {
       <br></br>
       <br></br>
       <br></br>
+      <JobsByCategory></JobsByCategory>
+
+      <JobsListing></JobsListing>
+
+      <CarouselClients></CarouselClients>
       <br></br>
     </div>
   );
