@@ -14,8 +14,10 @@ function CarouselClients() {
         <div
           className="row text-light"
           style={{
-            backgroundImage: `url(${job3})`,
+            background: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(${job3})`,
             backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             height: "500px",
             position: "relative",
             marginBottom: "100px",
@@ -52,10 +54,13 @@ function CarouselClients() {
         <Carousel
           slide
           variant="dark"
+          interval={700}
           nextIcon={
-            <i className="fa fa-arrow-right bg-primary p-2 rounded"></i>
+            <i className="fa fa-arrow-right bg-primary p-2 rounded d-none"></i>
           }
-          prevIcon={<i className="fa fa-arrow-left bg-primary p-2 rounded"></i>}
+          prevIcon={
+            <i className="fa fa-arrow-left bg-primary p-2 rounded d-none"></i>
+          }
         >
           <CarouselItem className="carousel-item">
             <div className="row justify-content-center pt-3 pb-3 px-3">

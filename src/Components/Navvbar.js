@@ -1,11 +1,13 @@
 import React from "react";
 import { Dropdown, Nav, NavDropdown, NavItem, Navbar } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import JobDetail from "./HomeComp/JobDetail";
 
 function Navvbar() {
   let jobList = "jobs";
   let jobCateg = "categ";
   let testimonial = "test";
+  let jobDetail = "detail";
   return (
     <div>
       <Navbar
@@ -21,6 +23,7 @@ function Navvbar() {
         <Navbar.Toggle aria-controls="nav-collapse"></Navbar.Toggle>
         <Navbar.Collapse id="nav-collapse">
           <Nav
+            closebutton
             className="fw-bold navbar-nav ms-auto p-4 p-lg-0"
             variant="underline"
           >
@@ -47,7 +50,7 @@ function Navvbar() {
                 </Link>
               </NavDropdown.Item>
               <NavDropdown.Item style={{ borderRadius: "10px" }}>
-                <Link to={`/joblist/${jobList}`} className="nav-link">
+                <Link to={`/jobdetail/${jobDetail}`} className="nav-link">
                   Job Detail
                 </Link>
               </NavDropdown.Item>

@@ -13,8 +13,10 @@ function JobsListing() {
         <div
           className="row text-light"
           style={{
-            backgroundImage: `url(${job3})`,
+            background: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(${job3})`,
             backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             height: "500px",
             position: "relative",
             marginBottom: "100px",

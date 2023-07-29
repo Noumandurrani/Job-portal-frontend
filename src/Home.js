@@ -52,7 +52,10 @@ function Home() {
           <div
             className="row text-light"
             style={{
-              backgroundImage: `url(${job2})`,
+              // backgroundImage: `url(${job2})`,
+              // backgroundBlendMode: "",
+              // filter: "brightness(50%)",
+              background: `linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url(${job2})`,
               backgroundSize: "100% 100%",
               height: "600px",
               position: "relative",
@@ -93,8 +96,13 @@ function Home() {
           <div
             className="row text-light"
             style={{
-              backgroundImage: `url(${job3})`,
+              // backgroundImage: `url(${job3})`,
+              background: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(${job3})`,
               backgroundSize: "100% 100%",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              // backgroundRepeat: "no-repeat",
+              // backgroundSize: "cover",
               height: "600px",
               position: "relative",
             }}

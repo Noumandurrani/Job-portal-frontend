@@ -11,8 +11,10 @@ function JobsByCategory() {
         <div
           className="row text-light"
           style={{
-            backgroundImage: `url(${job3})`,
+            background: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(${job3})`,
             backgroundSize: "100% 100%",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             height: "500px",
             position: "relative",
             marginBottom: "100px",
@@ -48,8 +50,8 @@ function JobsByCategory() {
         <div className="row">
           <div className="col-lg-3 mb-4" style={{}}>
             <div
-              className={` border border-light p-4 shadow ${
-                isHovered ? "shadow-0 border border-secondary" : ""
+              className={`border p-4 shadow ${
+                isHovered ? "shadow-0 border" : ""
               }`}
               style={{
                 cursor: "pointer",

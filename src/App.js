@@ -7,6 +7,7 @@ import Footer from "./Components/Footer";
 import JobsListing from "./Components/HomeComp/JobsListing";
 import JobsByCategory from "./Components/HomeComp/JobsByCategory";
 import CarouselClients from "./Components/HomeComp/CarouselClients";
+import JobDetail from "./Components/HomeComp/JobDetail";
 function App() {
   return (
     <div className="container-xxl bg-white p-0">
@@ -28,6 +29,10 @@ function App() {
           <Route
             path="/joblist/:id"
             element={<JobsListing></JobsListing>}
+          ></Route>
+          <Route
+            path="/jobdetail/:id"
+            element={<JobDetail></JobDetail>}
           ></Route>
           <Route
             path="/jobcategory/:id"
