@@ -1,11 +1,15 @@
-import React from "react";
+import AOS from "aos";
+import React, { useState, useEffect } from "react";
 import job3 from "../Images/job3.jpeg";
 import job2 from "../Images/job2.jpeg";
-
 import { Link, useParams } from "react-router-dom";
+
 function JobDetail() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
-    <div className="container-xxl bg-white" style={{ marginTop: 85 }}>
+    <div className="container-fluid bg-white" style={{ marginTop: 85 }}>
       {/* <h3>JobDetail</h3> */}
       <div
         className="row text-light"
@@ -31,7 +35,13 @@ function JobDetail() {
             // borderTop: "20px solid",
           }}
         >
-          <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+          <h1
+            data-aos="fade-down"
+            data-aos-delay="250"
+            data-aos-offset="200"
+            className="display-3 fw-bolder "
+            style={{ fontSize: "70px" }}
+          >
             Job Detail
           </h1>
           <div className="d-flex">
@@ -44,7 +54,12 @@ function JobDetail() {
       {/* ////////////////////////// */}
       <div className="container">
         <div className="row gy-5 gx-4">
-          <div className="col-lg-8">
+          <div
+            data-aos="fade-up"
+            data-aos-delay="150"
+            data-aos-offset="100"
+            className="col-lg-8"
+          >
             <div className="col-lg-12 d-flex flex-row mb-4">
               <div className="">
                 <img src={job2} style={{ width: "70px", height: "70px" }}></img>
@@ -178,6 +193,9 @@ function JobDetail() {
           </div>
           <div className="col-lg-4">
             <div
+              data-aos="fade-up"
+              data-aos-delay="250"
+              data-aos-offset="200"
               className="p-5 mb-4 rounded"
               style={{ backgroundColor: "#effdf5" }}
             >
@@ -208,6 +226,9 @@ function JobDetail() {
               </p>
             </div>
             <div
+              data-aos="fade-up"
+              data-aos-delay="250"
+              data-aos-offset="200"
               className="p-5 mb-4 rounded"
               style={{ backgroundColor: "#effdf5" }}
             >

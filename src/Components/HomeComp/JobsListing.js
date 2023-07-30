@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import job2 from "../Images/job2.jpeg";
 import FontAwesome from "react-fontawesome";
 import job3 from "../Images/job3.jpeg";
 import { Link, useParams } from "react-router-dom";
+import AOS from "aos";
 function JobsListing() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const [click, setClick] = useState(false);
   const { id } = useParams();
   console.log(id);
   return (
-    <div className="container-xxxl bg-white" style={{ marginTop: 85 }}>
+    <div className="container-fluid bg-white" style={{ marginTop: 85 }}>
       {id === "jobs" && (
         <div
           className="row text-light"
@@ -34,7 +38,13 @@ function JobsListing() {
               // borderTop: "20px solid",
             }}
           >
-            <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+            <h1
+              data-aos="fade-down"
+              data-aos-delay="250"
+              data-aos-offset="200"
+              className="display-3 fw-bolder "
+              style={{ fontSize: "70px" }}
+            >
               Job List
             </h1>
             <div className="d-flex">
@@ -45,10 +55,22 @@ function JobsListing() {
           </div>
         </div>
       )}
-      <h1 className="text-center fw-bolder">Job Listing</h1>
+      <h1
+        data-aos="fade-up"
+        data-aos-delay="150"
+        data-aos-offset="100"
+        className="text-center fw-bolder"
+      >
+        Job Listing
+      </h1>
       {/* <br></br> */}
       {/* <br></br> */}
-      <div className="d-flex justify-content-center">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="250"
+        data-aos-offset="100"
+        className="d-flex justify-content-center"
+      >
         <ul className="nav nav-underline d-inline-flex justify-content-center align-items-center border-bottom mb-5">
           <li className="nav-item">
             <a href="#" className="nav-link text-dark">
@@ -67,7 +89,12 @@ function JobsListing() {
           </li>
         </ul>
       </div>
-      <div className="container border border-light shadow">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="250"
+        data-aos-offset="100"
+        className="container border border-light shadow"
+      >
         <div className="row  pt-3 px-2">
           <div className="col-lg-7 d-flex flex-row ">
             <div className="">
@@ -131,7 +158,12 @@ function JobsListing() {
         </div>
       </div>
       <br></br>
-      <div className="d-flex justify-content-center">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="250"
+        data-aos-offset="50"
+        className="d-flex justify-content-center"
+      >
         <button className="btn btn-success pt-3 pb-3">Browse more jobs</button>
       </div>
       <br></br> <br></br> <br></br>

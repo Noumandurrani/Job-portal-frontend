@@ -1,7 +1,12 @@
-import React from "react";
 import job3 from "./Images/job3.jpeg";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import React, { useState, useEffect } from "react";
+
 function About() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="container-xxl bg-white" style={{ marginTop: 85 }}>
       <div
@@ -27,7 +32,13 @@ function About() {
             // borderTop: "20px solid",
           }}
         >
-          <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+          <h1
+            data-aos="fade-down"
+            data-aos-delay="250"
+            data-aos-offset="200"
+            className="display-3 fw-bolder "
+            style={{ fontSize: "70px" }}
+          >
             About
           </h1>
           <div className="d-flex">
@@ -38,7 +49,12 @@ function About() {
         </div>
       </div>
       <div className="container" style={{ marginTop: "20px" }}>
-        <p className="">
+        <p
+          data-aos="fade"
+          data-aos-delay="250"
+          data-aos-offset="50"
+          className=""
+        >
           Welcome to our blog, where we explore the limitless potential of
           positive thinking and its profound impact on our lives. In a world
           filled with challenges and uncertainties, developing a positive
@@ -47,8 +63,10 @@ function About() {
           thinking and provide practical tips to incorporate it into your daily
           life.
         </p>
-        <h5>Understanding the Power of Positive Thinking:</h5>
-        <p>
+        <h5 data-aos="fade" data-aos-delay="250" data-aos-offset="50">
+          Understanding the Power of Positive Thinking:
+        </h5>
+        <p data-aos="fade" data-aos-delay="250" data-aos-offset="50">
           Positive thinking is more than just wishful thoughts or a fleeting
           feeling of optimism. It is a mindset that embraces a constructive
           outlook and focuses on the potential for growth and success in any
@@ -56,8 +74,10 @@ function About() {
           resilience, improve mental health, boost physical well-being, and
           foster better relationships.
         </p>
-        <h5>Shifting Perspectives:</h5>
-        <p>
+        <h5 data-aos="fade" data-aos-delay="250" data-aos-offset="50">
+          Shifting Perspectives:
+        </h5>
+        <p data-aos="fade" data-aos-delay="250" data-aos-offset="50">
           Adopting a positive mindset requires a conscious effort to shift
           perspectives and reframe negative thoughts. Start by cultivating
           self-awareness and paying attention to your inner dialogue. Replace
@@ -66,8 +86,10 @@ function About() {
           you can open yourself up to opportunities for growth and find creative
           solutions.
         </p>
-        <h5>Practicing Gratitude:</h5>
-        <p>
+        <h5 data-aos="fade" data-aos-delay="250" data-aos-offset="50">
+          Practicing Gratitude:
+        </h5>
+        <p data-aos="fade" data-aos-delay="250" data-aos-offset="50">
           Gratitude is a powerful tool that can instantly shift your focus from
           what's lacking in your life to the abundance of blessings that
           surround you. Make a habit of practicing gratitude daily. This can be
@@ -76,8 +98,10 @@ function About() {
           gratitude trains your mind to seek the positive aspects in every
           situation.
         </p>
-        <h5>Surrounding Yourself with Positivity:</h5>
-        <p>
+        <h5 data-aos="fade" data-aos-delay="250" data-aos-offset="50">
+          Surrounding Yourself with Positivity:
+        </h5>
+        <p data-aos="fade" data-aos-delay="250" data-aos-offset="50">
           The people we surround ourselves with significantly impact our
           mindset. Surround yourself with positive, supportive individuals who
           inspire and uplift you. Engage in activities that bring you joy and

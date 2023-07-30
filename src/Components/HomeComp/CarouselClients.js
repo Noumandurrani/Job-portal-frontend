@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel, CarouselItem } from "react-bootstrap";
 import job1 from "../Images/job1.jpeg";
 import { Link, useParams } from "react-router-dom";
 import job3 from "../Images/job3.jpeg";
+import AOS from "aos";
 
 function CarouselClients() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const [backgroundColor, setBackgroundColor] = useState("#effdf5");
   const [textColor, setTextColor] = useState("gray");
   const { id } = useParams();
   return (
-    <div style={{ marginTop: 85 }}>
+    <div className="container-fluid bg-white" style={{}}>
       {id === "test" && (
         <div
           className="row text-light"
           style={{
+            marginTop: 85,
             background: `linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url(${job3})`,
             backgroundSize: "100% 100%",
             backgroundPosition: "center",
@@ -35,7 +40,13 @@ function CarouselClients() {
               // borderTop: "20px solid",
             }}
           >
-            <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+            <h1
+              data-aos="fade-down"
+              data-aos-delay="250"
+              data-aos-offset="200"
+              className="display-3 fw-bolder "
+              style={{ fontSize: "70px" }}
+            >
               Testimonial
             </h1>
             <div className="d-flex">
@@ -46,15 +57,27 @@ function CarouselClients() {
           </div>
         </div>
       )}
-      <h1 className="text-center fw-bolder">Our Clients Say!!!</h1>
+      <h1
+        data-aos="fade-up"
+        data-aos-delay="150"
+        data-aos-offset="50"
+        className="text-center fw-bolder"
+      >
+        Our Clients Say!!!
+      </h1>
 
       {/* <div className="container-xxl"> */}
-      <div className="container ">
+      <div
+        data-aos="fade-up"
+        data-aos-delay="250"
+        data-aos-offset="200"
+        className="container "
+      >
         {/* <div className="row"> */}
         <Carousel
           slide
           variant="dark"
-          interval={700}
+          interval={2000}
           nextIcon={
             <i className="fa fa-arrow-right bg-primary p-2 rounded d-none"></i>
           }

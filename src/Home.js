@@ -1,19 +1,24 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import job2 from "./Components/Images/job2.jpeg";
 import job3 from "./Components/Images/job3.jpeg";
 import { Carousel } from "react-bootstrap";
 import JobsByCategory from "./Components/HomeComp/JobsByCategory";
 import JobsListing from "./Components/HomeComp/JobsListing";
 import CarouselClients from "./Components/HomeComp/CarouselClients";
+import AOS from "aos";
 function Home() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div
-      className="container-xxxl bg-white" ////sticky-top bg-white
+      className="container-fluid bg-white " ////sticky-top bg-white
       style={{ marginTop: 85 }}
     >
       {/* ///////////////////////////Carousel///////////////////////////////////// */}
       <Carousel
         className="carousel"
+        style={{ marginLeft: "-12px", marginRight: "-12px" }}
         slide
         nextIcon={
           <i
@@ -48,9 +53,9 @@ function Home() {
           ></i>
         }
       >
-        <Carousel.Item className="slide" interval={500}>
+        <Carousel.Item className="slide" interval={3500}>
           <div
-            className="row text-light"
+            className="row text-light "
             style={{
               // backgroundImage: `url(${job2})`,
               // backgroundBlendMode: "",
@@ -73,19 +78,40 @@ function Home() {
                 // borderTop: "20px solid",
               }}
             >
-              <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+              <h1
+                data-aos="fade-down"
+                data-aos-delay="250"
+                data-aos-offset="200"
+                className="display-3 fw-bolder "
+                style={{ fontSize: "70px" }}
+              >
                 Find The Perfect Job That You Deserved
               </h1>
-              <p className="fs-5 mt-4">
+              <p
+                data-aos="fade-down"
+                data-aos-delay="250"
+                data-aos-offset="200"
+                className="fs-5 mt-4"
+              >
                 Lorem ipsum is a placeholder text commonly used to demonstrate
                 the visual form of a document or a typeface without relying on
                 meaningful content
               </p>
               <div className="d-flex mt-4">
-                <button className=" btn btn-success rounded-0 px-5 pt-3 pb-3 fs-6">
+                <button
+                  data-aos="fade-right"
+                  data-aos-delay="250"
+                  data-aos-offset="100"
+                  className=" btn btn-success rounded-0 px-5 pt-3 pb-3 fs-6"
+                >
                   Search A Job
                 </button>
-                <button className="btn btn-primary ms-4 rounded-0 px-5 pt-3 pb-3 fs-6">
+                <button
+                  data-aos="fade-left"
+                  data-aos-delay="250"
+                  data-aos-offset="100"
+                  className="btn btn-primary ms-4 rounded-0 px-5 pt-3 pb-3 fs-6"
+                >
                   Find A Talent
                 </button>
               </div>
@@ -119,19 +145,40 @@ function Home() {
                 // borderTop: "20px solid",
               }}
             >
-              <h1 className="display-3 fw-bolder " style={{ fontSize: "70px" }}>
+              <h1
+                data-aos="fade-down"
+                data-aos-delay="250"
+                data-aos-offset="200"
+                className="display-3 fw-bolder "
+                style={{ fontSize: "70px" }}
+              >
                 Find The Best Startup Job That Fit You
               </h1>
-              <p className="fs-5 mt-4">
+              <p
+                data-aos="fade-down"
+                data-aos-delay="250"
+                data-aos-offset="200"
+                className="fs-5 mt-4"
+              >
                 Lorem ipsum is a placeholder text commonly used to demonstrate
                 the visual form of a document or a typeface without relying on
                 meaningful content
               </p>
-              <div className="d-flex mt-4">
+              <div
+                data-aos="fade-down"
+                data-aos-delay="250"
+                data-aos-offset="100"
+                className="d-flex mt-4"
+              >
                 <button className=" btn btn-success rounded-0 px-5 pt-3 pb-3 fs-6">
                   Search A Job
                 </button>
-                <button className="btn btn-primary ms-4 rounded-0 px-5 pt-3 pb-3 fs-6">
+                <button
+                  data-aos="fade-down"
+                  data-aos-delay="250"
+                  data-aos-offset="100"
+                  className="btn btn-primary ms-4 rounded-0 px-5 pt-3 pb-3 fs-6"
+                >
                   Find A Talent
                 </button>
               </div>
@@ -185,7 +232,12 @@ function Home() {
         </div>
       </div> */}
       {/* /////////////////////////////////////////////////////////////////// */}
-      <div className="row bg-success">
+      <div
+        data-aos="fade"
+        data-aos-delay="150"
+        data-aos-offset="30"
+        className="row bg-success"
+      >
         <div className="container-fluid">
           <div className="container">
             <div className="row justify-content-center  pt-4 pb-4">
@@ -212,11 +264,10 @@ function Home() {
         </div>
       </div>
       <br></br>
-      <br></br>
-      <br></br>
       <JobsByCategory></JobsByCategory>
 
       <JobsListing></JobsListing>
+      <br></br>
 
       <CarouselClients></CarouselClients>
       <br></br>

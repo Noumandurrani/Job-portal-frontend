@@ -8,9 +8,12 @@ import JobsListing from "./Components/HomeComp/JobsListing";
 import JobsByCategory from "./Components/HomeComp/JobsByCategory";
 import CarouselClients from "./Components/HomeComp/CarouselClients";
 import JobDetail from "./Components/HomeComp/JobDetail";
+import SignUp from "./Components/SignUp";
+import SignIn from "./Components/SignIn";
+import PostAJob from "./Components/PostAJob";
 function App() {
   return (
-    <div className="container-xxl bg-white p-0">
+    <div className="container-fluid bg-white p-0">
       {/* <div
         className="bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
         id="spinner"
@@ -42,6 +45,8 @@ function App() {
             path="/testimonial/:id"
             element={<CarouselClients></CarouselClients>}
           ></Route>
+          <Route path="/signup" element={<SignUp></SignUp>}></Route>
+          <Route path="/postjob" element={<PostAJob></PostAJob>}></Route>
         </Routes>
         <Footer></Footer>
       </Router>

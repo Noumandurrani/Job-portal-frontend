@@ -2,16 +2,19 @@ import React from "react";
 import { Dropdown, Nav, NavDropdown, NavItem, Navbar } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import JobDetail from "./HomeComp/JobDetail";
+import SignIn from "./SignIn";
+import { useState } from "react";
 
 function Navvbar() {
   let jobList = "jobs";
   let jobCateg = "categ";
   let testimonial = "test";
   let jobDetail = "detail";
+  const [showSignIn, setShowSignIn] = useState(false);
   return (
     <div>
       <Navbar
-        className=" p-0  fixed-top"
+        className=" p-lg-0 fixed-top p-md-4"
         style={{ zIndex: 100000 }}
         bg="light"
         variant=""
@@ -71,14 +74,26 @@ function Navvbar() {
                 </Link>
               </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Item className="d-flex justify-content-center align-items-center fw-medium">
+              <Link
+                className="nav-link"
+                onClick={(e) => {
+                  setShowSignIn(true);
+                }}
+              >
+                <i className="bi bi-person fs-5 text-success me-2"></i>
+                Sign in
+              </Link>
+            </Nav.Item>
             <Nav.Item className="btn btn-success  fw-bolder text-light rounded-0 px-lg-5 py-4 d-none d-lg-block">
-              <Link to="/" className="nav-link text-white">
+              <Link to="/postjob" className="nav-link text-white">
                 Post A Job <i className="fa fa-arrow-right ms-3"></i>
               </Link>
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <SignIn showSignIn={showSignIn} setShowSignIn={setShowSignIn}></SignIn>
     </div>
   );
 }

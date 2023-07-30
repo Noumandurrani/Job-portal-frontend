@@ -1,8 +1,15 @@
-import React from "react";
+import AOS from "aos";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 function Footer() {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div
+      data-aos="fade"
+      data-aos-delay="150"
+      data-aos-offset="20"
       className="container-fluid pt-5"
       style={{ backgroundColor: "#2b3940" }}
     >
@@ -134,7 +141,7 @@ function Footer() {
               style={{ color: "#959ca0" }}
             >
               <input
-                className="bg-transparent "
+                className="bg-transparent text-light"
                 type="email"
                 placeholder="email"
                 style={{
