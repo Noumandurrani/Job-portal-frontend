@@ -1,9 +1,36 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Modal, Nav } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 function SignIn({ showSignIn, setShowSignIn }) {
-  //   const [show, setShow] = useState(true);
   const navgate = useNavigate();
+
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("candidate");
+  // const [phone, setPhone] = useState("");
+  // const [show, setShow] = useState(true);
+  // const handleSignUp = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .post("http://127.0.0.1:5000/jobportal/api/add/user", {
+  //       name: name,
+  //       email: email,
+  //       password: password,
+  //       role: role,
+  //       phone: phone,
+  //       confirmPassword: confirmPassword,
+  //       // terms_condition: terms,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // };
   const handleClose = (e) => {
     setShowSignIn(false);
   };
@@ -36,34 +63,58 @@ function SignIn({ showSignIn, setShowSignIn }) {
                 className="nav-item border me-3 "
                 style={{ width: "48.8%" }}
               >
-                <NavLink className="nav-link border text-dark">
+                <NavLink
+                  className={`nav-link ${
+                    role == "candidate"
+                      ? "text-success border-bottom border-success border-2"
+                      : ""
+                  }`}
+                  onClick={(e) => {
+                    setRole("candidate");
+                  }}
+                  style={{ borderBottom: "2px solid black", color: "black" }}
+                >
                   <div className="d-flex flex-row align-items-center">
                     <div>
                       <i className="bi bi-people fs-1 me-3"></i>
                     </div>
                     <div className="">
                       <h6 className="p-0 m-0">Candidate</h6>
-                      <p className="p-0 m-0">Log in as Candidate</p>
+                      <p className="p-0 m-0">I want to discover companies.</p>
                     </div>
                   </div>
                 </NavLink>
               </Nav.Item>
               <Nav.Item className="nav-item border" style={{ width: "48.8%" }}>
-                <NavLink className="nav-link  text-dark">
+                <NavLink
+                  className={`nav-link  ${
+                    role == "employer"
+                      ? "text-success border-bottom border-success border-2"
+                      : ""
+                  }`}
+                  onClick={(e) => {
+                    setRole("employer");
+                  }}
+                  style={{ borderBottom: "2px solid black", color: "black" }}
+                >
                   <div className="d-flex flex-row align-items-center">
                     <div>
                       <i className="bi bi-bag fs-1 me-3"></i>
                     </div>
                     <div className="">
                       <h6 className="p-0 m-0">Employer</h6>
-                      <p className="p-0 m-0">Log in as Employer</p>
+                      <p className="p-0 m-0">
+                        I want to attract the best talent.
+                      </p>
                     </div>
                   </div>
                 </NavLink>
               </Nav.Item>
             </Nav>
           </fieldset>
-          <form>
+          <form
+          // onSubmit={handleSignUp}
+          >
             <div className="col-lg-12">
               <label className=" text-secondary">Email Address:</label>
               <input
@@ -116,7 +167,7 @@ function SignIn({ showSignIn, setShowSignIn }) {
           <div className="row g-3 mb-3">
             <div className="col-lg-6">
               <button
-                className="btn form-control rounded-0 text-light"
+                className="btn form-control rounded-0 btn-success"
                 style={{ height: "53px", backgroundColor: "#3664a2" }}
               >
                 <i className="bi bi-facebook fs-6 me-3"></i>

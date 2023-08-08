@@ -4,14 +4,34 @@ import job2 from "./Images/job2.jpeg";
 import job3 from "./Images/job3.jpeg";
 import { NavLink, Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-// import { Maps, Marker } from "google-map-react";
+import axios from "axios";
+
 function SignUp() {
-  const defaultProps = {
-    center: {
-      lat: 10.99835602,
-      lng: 77.01502627,
-    },
-    zoom: 11,
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("candidate");
+  const [phone, setPhone] = useState("");
+  const [terms, setTerms] = useState(false);
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/add/user", {
+        name: name,
+        email: email,
+        password: password,
+        role: role,
+        phone: phone,
+        confirmPassword: confirmPassword,
+        // terms_condition: terms,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
   useEffect(() => {
     AOS.init();
@@ -46,6 +66,7 @@ function SignUp() {
             data-aos="fade-down"
             data-aos-delay="250"
             data-aos-offset="200"
+            data-aos-duration="700"
             className="display-3 fw-bolder "
             style={{ fontSize: "70px" }}
           >
@@ -82,14 +103,24 @@ function SignUp() {
                   className="nav-item border me-3 "
                   style={{ width: "48.8%" }}
                 >
-                  <NavLink className="nav-link border text-dark">
+                  <NavLink
+                    className={`nav-link ${
+                      role == "candidate"
+                        ? "text-success border-bottom border-success border-2"
+                        : ""
+                    }`}
+                    onClick={(e) => {
+                      setRole("candidate");
+                    }}
+                    style={{ borderBottom: "2px solid black", color: "black" }}
+                  >
                     <div className="d-flex flex-row align-items-center">
                       <div>
                         <i className="bi bi-people fs-1 me-3"></i>
                       </div>
                       <div className="">
                         <h6 className="p-0 m-0">Candidate</h6>
-                        <p className="p-0 m-0">Log in as Candidate</p>
+                        <p className="p-0 m-0">I want to discover companies.</p>
                       </div>
                     </div>
                   </NavLink>
@@ -98,21 +129,34 @@ function SignUp() {
                   className="nav-item border"
                   style={{ width: "48.8%" }}
                 >
-                  <NavLink className="nav-link  text-dark">
+                  <NavLink
+                    className={`nav-link  ${
+                      role == "employer"
+                        ? "text-success border-bottom border-success border-2"
+                        : ""
+                    }`}
+                    onClick={(e) => {
+                      setRole("employer");
+                    }}
+                    style={{ borderBottom: "2px solid black", color: "black" }}
+                  >
                     <div className="d-flex flex-row align-items-center">
                       <div>
                         <i className="bi bi-bag fs-1 me-3"></i>
                       </div>
                       <div className="">
                         <h6 className="p-0 m-0">Employer</h6>
-                        <p className="p-0 m-0">Log in as Employer</p>
+                        <p className="p-0 m-0">
+                          I want to attract the best talent.
+                        </p>
                       </div>
                     </div>
                   </NavLink>
                 </Nav.Item>
               </Nav>
             </fieldset>
-            <form>
+
+            <form onSubmit={handleSignUp}>
               <div className="row g-3 ">
                 <div className="col-lg-6">
                   <label className=" text-secondary">Username *</label>
@@ -121,6 +165,10 @@ function SignUp() {
                     type="text"
                     className="form-control"
                     style={{ height: "50px" }}
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
                   ></input>
                 </div>
                 <div className="col-lg-6">
@@ -130,6 +178,10 @@ function SignUp() {
                     type="email"
                     className="form-control"
                     style={{ height: "50px" }}
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                   ></input>
                 </div>
                 <div className="col-lg-6">
@@ -139,6 +191,10 @@ function SignUp() {
                     type="password"
                     className="form-control"
                     style={{ height: "50px" }}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                   ></input>
                 </div>
                 <div className="col-lg-6">
@@ -148,8 +204,17 @@ function SignUp() {
                     type="password"
                     className="form-control"
                     style={{ height: "50px" }}
+                    value={confirmPassword}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                    }}
                   ></input>
                 </div>
+                {confirmPassword != password ? (
+                  <h6 className="text-danger">confirm password must be same</h6>
+                ) : (
+                  ""
+                )}
                 <div className="col-lg-12">
                   <label className=" text-secondary">Phone *</label>
                   <input
@@ -157,9 +222,13 @@ function SignUp() {
                     type="tel"
                     className="form-control"
                     style={{ height: "50px" }}
+                    value={phone}
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                    }}
                   ></input>
                 </div>
-                <div className="col-lg-12">
+                {/* <div className="col-lg-12">
                   <label className=" text-secondary">Select Sector *</label>
                   <select
                     placeholder=""
@@ -171,24 +240,48 @@ function SignUp() {
                     <option>Accountancy</option>
                     <option>Accountancy</option>
                   </select>
-                </div>
+                </div> */}
                 <div className="col-lg-12 fs-6">
                   <input
                     placeholder=""
                     type="checkbox"
-                    className="me-2 bg-success"
-                    style={{}}
+                    className="me-2 text-success bg-success"
+                    style={{ caretColor: "" }}
+                    checked={terms}
+                    onClick={(e) => {
+                      setTerms(e.target.checked);
+                    }}
                   ></input>
                   you accept our Terms and Conditions and Privacy Policy
                 </div>
-                <div className="col-lg-6">
-                  <input
-                    className="btn form-control btn-success rounded-0"
-                    type="submit"
-                    value="Sign up"
-                    style={{ height: "53px" }}
-                  ></input>
-                </div>
+                {/* {terms == false ? (
+                  <h6>please accept terms and conditions</h6>
+                ) : (
+                  ""
+                )} */}
+                {terms == true ? (
+                  <div className="col-lg-6">
+                    <input
+                      className="btn form-control btn-success rounded-0"
+                      type="submit"
+                      value="Sign up"
+                      style={{ height: "53px" }}
+                    ></input>
+                  </div>
+                ) : (
+                  <div className="col-lg-6">
+                    <input
+                      className="btn shadow-0 btn-dark text-center text-light form-control rounded-0"
+                      value="SIGN UP"
+                      style={{
+                        height: "53px",
+                        backgroundColor: "gray",
+                        cursor: "not-allowed",
+                      }}
+                    ></input>
+                  </div>
+                )}
+
                 <div className="col-lg-6 text-end">
                   <p className="p-0 m-0">
                     Already Registered?{" "}
@@ -271,12 +364,6 @@ function SignUp() {
                 </button>
               </div>
             </div>
-            {/* <div style={{ height: "100vh", width: "100%" }}>
-              <googleMapReact
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-              ></googleMapReact>
-            </div> */}
           </div>
         </div>
       </div>

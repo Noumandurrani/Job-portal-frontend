@@ -3,9 +3,20 @@ import React, { useState, useEffect } from "react";
 import job3 from "../Images/job3.jpeg";
 import job2 from "../Images/job2.jpeg";
 import { Link, useParams } from "react-router-dom";
-
+import axios from "axios";
 function JobDetail() {
+  const [jobDetail, setJobDetail] = useState({});
+  const { id } = useParams();
   useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/jobportal/api/get/job/" + id)
+      .then((res) => {
+        console.log(res.data.data);
+        setJobDetail(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     AOS.init();
   }, []);
   return (
@@ -39,6 +50,7 @@ function JobDetail() {
             data-aos="fade-down"
             data-aos-delay="250"
             data-aos-offset="200"
+            data-aos-duration="700"
             className="display-3 fw-bolder "
             style={{ fontSize: "70px" }}
           >
@@ -62,22 +74,25 @@ function JobDetail() {
           >
             <div className="col-lg-12 d-flex flex-row mb-4">
               <div className="">
-                <img src={job2} style={{ width: "70px", height: "70px" }}></img>
+                <img
+                  src={"http://127.0.0.1:5000/" + jobDetail.companyLogo}
+                  style={{ width: "70px", height: "70px" }}
+                ></img>
               </div>
               <div className="mx-4" style={{}}>
-                <h3>Software Engineer</h3>
+                <h3>{jobDetail.jobTitle}</h3>
                 <div className="d-flex flex-row align-items-center fw-medium">
                   <div className="d-flex flex-row me-3">
                     <i className="bi bi-geo-alt-fill me-1 text-success"></i>
-                    <p>New York, USA</p>
+                    <p>{jobDetail.jobLocation}</p>
                   </div>
                   <div className="d-flex flex-row me-3">
                     <i class="bi bi-stopwatch me-1 text-success"></i>
-                    <p>Full Time</p>
+                    <p>{jobDetail.jobType}</p>
                   </div>
                   <div className="d-flex flex-row align-items-start justify-content-center">
                     <i class="bi bi-cash me-1 fs-5 d-flex pt-1 text-success fw-bolder"></i>
-                    <p className="d-flex">$123 - $300</p>
+                    <p className="d-flex">{jobDetail.jobSalary}</p>
                   </div>
                 </div>
               </div>
@@ -85,26 +100,11 @@ function JobDetail() {
             {/* ////////// */}
             <div className="mb-4">
               <h4 className="fw-bolder">Job Description</h4>
-              <p>
-                Dolor justo tempor duo ipsum accusam rebum gubergren erat. Elitr
-                stet dolor vero clita labore gubergren. Kasd sed ipsum elitr
-                clita rebum ut sea diam tempor. Sadipscing nonumy vero labore
-                invidunt dolor sed, eirmod dolore amet aliquyam consetetur
-                lorem, amet elitr clita et sed consetetur dolore accusam. Vero
-                kasd nonumy justo rebum stet. Ipsum amet sed lorem sea magna.
-                Rebum vero dolores dolores elitr vero dolores magna, stet sea
-                sadipscing stet et. Est voluptua et sanctus at sanctus erat vero
-                sed sed, amet duo no diam clita rebum duo, accusam tempor
-                takimata clita stet nonumy rebum est invidunt stet, dolor.
-              </p>
+              <p>{jobDetail.jobDescription}</p>
             </div>
             <div className="mb-4">
               <h4 className="fw-bolder">Responsibility</h4>
-              <p>
-                Magna et elitr diam sed lorem. Diam diam stet erat no est est.
-                Accusam sed lorem stet voluptua sit sit at stet consetetur,
-                takimata at diam kasd gubergren elitr dolor
-              </p>
+              <p>{jobDetail.jobRequirement}</p>
               <div className="d-flex flex-row">
                 <i className="bi bi-caret-right-fill text-success fw-bolder fs-6 me-2 "></i>
                 <p className="m-0">Dolor justo tempor duo ipsum accusam</p>
@@ -121,11 +121,7 @@ function JobDetail() {
 
             <div className="mb-4">
               <h4 className="fw-bolder"> Qualifications</h4>
-              <p>
-                Magna et elitr diam sed lorem. Diam diam stet erat no est est.
-                Accusam sed lorem stet voluptua sit sit at stet consetetur,
-                takimata at diam kasd gubergren elitr dolor
-              </p>
+              <p>{jobDetail.Qaulification}</p>
               <div className="d-flex flex-row">
                 <i className="bi bi-caret-right-fill text-success fw-bolder fs-6 me-2 "></i>
                 <p className="m-0">Dolor justo tempor duo ipsum accusam</p>
@@ -206,23 +202,23 @@ function JobDetail() {
               </p>
               <p>
                 <i className="fa fa-angle-right me-2 fw-bolder text-success"></i>
-                Vacancy: 123 Position
+                Vacancy: {jobDetail.vacancy} Position
               </p>
               <p>
                 <i className="fa fa-angle-right me-2 fw-bolder text-success"></i>
-                Job Nature: Full Time
+                Job Nature: {jobDetail.jobType}
               </p>
               <p>
                 <i className="fa fa-angle-right me-2 fw-bolder text-success"></i>
-                Salary: $123 - $456
+                Salary: {jobDetail.jobSalary}
               </p>
               <p>
                 <i className="fa fa-angle-right me-2 fw-bolder text-success"></i>
-                Location: New York, USA
+                Location: {jobDetail.jobLocation}
               </p>
               <p>
                 <i className="fa fa-angle-right me-2 fw-bolder text-success"></i>
-                Date Line: 01 Jan, 2045
+                Date Line: {jobDetail.deadline}
               </p>
             </div>
             <div
@@ -233,13 +229,9 @@ function JobDetail() {
               style={{ backgroundColor: "#effdf5" }}
             >
               <h4 className="mb-4 fw-bolder">Company Detail</h4>
-              <p>
-                Ipsum dolor ipsum accusam stet et et diam dolores, sed rebum
-                sadipscing elitr vero dolores. Lorem dolore elitr justo et no
-                gubergren sadipscing, ipsum et takimata aliquyam et rebum est
-                ipsum lorem diam. Et lorem magna eirmod est et et sanctus et,
-                kasd clita labore.
-              </p>
+              <p>Name: {jobDetail.companyName}</p>
+              <p>{jobDetail.companyDescription}</p>
+              <p> Reachout: {jobDetail.companyWebsite}</p>
             </div>
           </div>
         </div>

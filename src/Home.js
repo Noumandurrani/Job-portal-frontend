@@ -82,6 +82,7 @@ function Home() {
                 data-aos="fade-down"
                 data-aos-delay="250"
                 data-aos-offset="200"
+                data-aos-duration="1000"
                 className="display-3 fw-bolder "
                 style={{ fontSize: "70px" }}
               >
@@ -91,6 +92,7 @@ function Home() {
                 data-aos="fade-down"
                 data-aos-delay="250"
                 data-aos-offset="200"
+                data-aos-duration="1000"
                 className="fs-5 mt-4"
               >
                 Lorem ipsum is a placeholder text commonly used to demonstrate
@@ -102,6 +104,7 @@ function Home() {
                   data-aos="fade-right"
                   data-aos-delay="250"
                   data-aos-offset="100"
+                  data-aos-duration="700"
                   className=" btn btn-success rounded-0 px-5 pt-3 pb-3 fs-6"
                 >
                   Search A Job
@@ -110,6 +113,7 @@ function Home() {
                   data-aos="fade-left"
                   data-aos-delay="250"
                   data-aos-offset="100"
+                  data-aos-duration="1000"
                   className="btn btn-primary ms-4 rounded-0 px-5 pt-3 pb-3 fs-6"
                 >
                   Find A Talent

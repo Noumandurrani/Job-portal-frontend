@@ -52,11 +52,11 @@ function Navvbar() {
                   Job List
                 </Link>
               </NavDropdown.Item>
-              <NavDropdown.Item style={{ borderRadius: "10px" }}>
+              {/* <NavDropdown.Item style={{ borderRadius: "10px" }}>
                 <Link to={`/jobdetail/${jobDetail}`} className="nav-link">
                   Job Detail
                 </Link>
-              </NavDropdown.Item>
+              </NavDropdown.Item> */}
             </NavDropdown>
             <NavDropdown
               title="Pages"
@@ -85,7 +85,7 @@ function Navvbar() {
                 Sign in
               </Link>
             </Nav.Item>
-            <Nav.Item className="btn btn-success  fw-bolder text-light rounded-0 px-lg-5 py-4 d-none d-lg-block">
+            <Nav.Item className="btn btn-success fw-bolder text-light rounded-0 px-lg-5 py-4 d-none d-lg-block">
               <Link to="/postjob" className="nav-link text-white">
                 Post A Job <i className="fa fa-arrow-right ms-3"></i>
               </Link>

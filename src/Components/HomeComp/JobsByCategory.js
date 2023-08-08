@@ -52,6 +52,7 @@ function JobsByCategory() {
               data-aos="fade-down"
               data-aos-delay="150"
               data-aos-offset="200"
+              data-aos-duration="1000"
               className="display-3 fw-bolder "
               style={{ fontSize: "70px" }}
             >

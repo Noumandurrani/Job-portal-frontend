@@ -3,14 +3,33 @@ import job2 from "../Images/job2.jpeg";
 import FontAwesome from "react-fontawesome";
 import job3 from "../Images/job3.jpeg";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import AOS from "aos";
 function JobsListing() {
+  const [jobData, setJobData] = useState([]);
+  const [browse, setBrowse] = useState(false);
   useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/jobportal/api/get/jobs")
+      .then((res) => {
+        console.log(res.data.data);
+        setJobData(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     AOS.init();
   }, []);
   const [click, setClick] = useState(false);
   const { id } = useParams();
-  console.log(id);
+  // console.log(id);
+  if (browse == false) {
+    var listOfJobs = jobData.slice(-3);
+    var latestJobs = listOfJobs.reverse();
+  } else {
+    var latestJobs = jobData.reverse();
+  }
+
   return (
     <div className="container-fluid bg-white" style={{ marginTop: 85 }}>
       {id === "jobs" && (
@@ -42,6 +61,7 @@ function JobsListing() {
               data-aos="fade-down"
               data-aos-delay="250"
               data-aos-offset="200"
+              data-aos-duration="700"
               className="display-3 fw-bolder "
               style={{ fontSize: "70px" }}
             >
@@ -93,9 +113,9 @@ function JobsListing() {
         data-aos="fade-up"
         data-aos-delay="250"
         data-aos-offset="100"
-        className="container border border-light shadow"
+        className="container border border-light"
       >
-        <div className="row  pt-3 px-2">
+        {/* <div className="row  pt-3 px-2 shadow mb-4">
           <div className="col-lg-7 d-flex flex-row ">
             <div className="">
               <img src={job2} style={{ width: "70px", height: "70px" }}></img>
@@ -155,7 +175,77 @@ function JobsListing() {
               Jan, 5555
             </small>
           </div>
-        </div>
+        </div> */}
+        {/* ////////////////////////////////// */}
+        {latestJobs.map((item) => (
+          <div className="row  pt-3 px-2 shadow mb-4" key={item.id}>
+            <div className="col-lg-7 d-flex flex-row ">
+              <div className="">
+                <img
+                  src={"http://127.0.0.1:5000/" + item.companyLogo}
+                  style={{ width: "70px", height: "70px" }}
+                ></img>
+              </div>
+              <div className="mx-4" style={{}}>
+                <h3>{item.jobTitle}</h3>
+                <div className="d-flex flex-row align-items-center fw-medium ">
+                  <div className="d-flex flex-row me-3">
+                    <i className="bi bi-geo-alt-fill me-1 text-success"></i>
+                    <p>{item.jobLocation}</p>
+                  </div>
+                  <div className="d-flex flex-row me-3">
+                    <i class="bi bi-stopwatch me-1 text-success"></i>
+                    <p>{item.jobType}</p>
+                  </div>
+                  <div className="d-flex flex-row align-items-start justify-content-center">
+                    <i class="bi bi-cash me-1 fs-5 d-flex pt-1 text-success fw-bolder"></i>
+                    <p className="d-flex">{item.jobSalary}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-lg-4 d-flex flex-column align-items-end">
+              <div className="d-flex align-items-center">
+                <i
+                  className="fa fa-heart mx-3 p-2 bg-success rounded bg-opacity-25 border-success"
+                  style={{ color: "white", opacity: "100%" }}
+                  onMouseOver={(e) => {
+                    e.target.style.color = "green";
+                    e.target.style.opacity = "50%";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (click === false) {
+                      e.target.style.color = "white";
+                      e.target.style.opacity = "100%";
+                    } else {
+                      e.target.style.color = "green";
+                      e.target.style.opacity = "100%";
+                    }
+                  }}
+                  onClick={(e) => {
+                    if (click === false) {
+                      e.target.style.color = "green";
+                      e.target.style.opacity = "100%";
+                      setClick(true);
+                    } else {
+                      e.target.style.color = "green";
+                      e.target.style.opacity = "50%";
+                      setClick(false);
+                    }
+                  }}
+                ></i>
+                <Link to={"/jobdetail/" + item._id} className="btn btn-success">
+                  Apply Now
+                </Link>
+              </div>
+              <small className="mt-2">
+                <i className="bi bi-calendar3 mx-3 text-success"></i>Date Line:
+                {item.deadline}
+              </small>
+            </div>
+          </div>
+        ))}
+        {/* ////////////////////////////////// */}
       </div>
       <br></br>
       <div
@@ -164,7 +254,22 @@ function JobsListing() {
         data-aos-offset="50"
         className="d-flex justify-content-center"
       >
-        <button className="btn btn-success pt-3 pb-3">Browse more jobs</button>
+        {id == "jobs" ? (
+          browse == false && (
+            <button
+              className="btn btn-success pt-3 pb-3"
+              onClick={(e) => {
+                setBrowse(true);
+              }}
+            >
+              Browse more jobs
+            </button>
+          )
+        ) : (
+          <Link to={"/joblist/jobs"} className="btn btn-success pt-3 pb-3">
+            Browse more jobs
+          </Link>
+        )}
       </div>
       <br></br> <br></br> <br></br>
     </div>

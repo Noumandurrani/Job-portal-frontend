@@ -36,6 +36,7 @@ function About() {
             data-aos="fade-down"
             data-aos-delay="250"
             data-aos-offset="200"
+            data-aos-duration="700"
             className="display-3 fw-bolder "
             style={{ fontSize: "70px" }}
           >
