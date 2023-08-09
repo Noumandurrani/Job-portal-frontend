@@ -9,7 +9,7 @@ import JobsByCategory from "./Components/HomeComp/JobsByCategory";
 import CarouselClients from "./Components/HomeComp/CarouselClients";
 import JobDetail from "./Components/HomeComp/JobDetail";
 import SignUp from "./Components/SignUp";
-import SignIn from "./Components/SignIn";
+// import SignIn from "./Components/SignIn";
 import PostAJob from "./Components/PostAJob";
 function App() {
   return (

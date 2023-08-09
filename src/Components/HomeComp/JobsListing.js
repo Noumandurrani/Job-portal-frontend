@@ -31,7 +31,7 @@ function JobsListing() {
   }
 
   return (
-    <div className="container-fluid bg-white" style={{ marginTop: 85 }}>
+    <div className="container-fluid bg-white" style={{ marginTop: 84 }}>
       {id === "jobs" && (
         <div
           className="row text-light"
@@ -240,7 +240,7 @@ function JobsListing() {
               </div>
               <small className="mt-2">
                 <i className="bi bi-calendar3 mx-3 text-success"></i>Date Line:
-                {item.deadline}
+                {item.deadline.substring(3, 15)}
               </small>
             </div>
           </div>

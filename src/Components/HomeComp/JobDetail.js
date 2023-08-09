@@ -20,7 +20,7 @@ function JobDetail() {
     AOS.init();
   }, []);
   return (
-    <div className="container-fluid bg-white" style={{ marginTop: 85 }}>
+    <div className="container-fluid bg-white" style={{ marginTop: 84 }}>
       {/* <h3>JobDetail</h3> */}
       <div
         className="row text-light"
@@ -179,9 +179,22 @@ function JobDetail() {
                     ></textarea>
                   </div>
                   <div className="col-lg-12">
-                    <button className="btn btn-success form-control">
-                      Apply Now
-                    </button>
+                    {localStorage.getItem("isLoggedIn") ? (
+                      <button className="btn btn-success form-control">
+                        Apply Now
+                      </button>
+                    ) : (
+                      <abbr
+                        title="Login first"
+                        className="btn shadow-0 bg-secondary form-control"
+                        style={{
+                          cursor: "not-allowed",
+                          textDecoration: "none",
+                        }}
+                      >
+                        Apply Now
+                      </abbr>
+                    )}
                   </div>
                 </div>
               </form>

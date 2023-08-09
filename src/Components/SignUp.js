@@ -1,10 +1,11 @@
 import AOS from "aos";
 import React, { useState, useEffect } from "react";
-import job2 from "./Images/job2.jpeg";
+import tick from "./Images/tick.png";
 import job3 from "./Images/job3.jpeg";
 import { NavLink, Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
+import { Modal } from "react-bootstrap";
 
 function SignUp() {
   const [name, setName] = useState("");
@@ -14,6 +15,8 @@ function SignUp() {
   const [role, setRole] = useState("candidate");
   const [phone, setPhone] = useState("");
   const [terms, setTerms] = useState(false);
+  const [showPage, setShowPage] = useState(false);
+
   const handleSignUp = (e) => {
     e.preventDefault();
     axios
@@ -28,6 +31,7 @@ function SignUp() {
       })
       .then((res) => {
         console.log(res.data);
+        setShowPage(true);
       })
       .catch((err) => {
         console.error(err);
@@ -38,6 +42,36 @@ function SignUp() {
   }, []);
   return (
     <div className="container-fluid" style={{ marginTop: 85 }}>
+      <Modal
+        style={{
+          zIndex: 1000000000,
+          marginTop: "100px",
+        }}
+        className="modal"
+        show={showPage}
+        onHide={() => {
+          setShowPage(false);
+        }}
+      >
+        <Modal.Header>
+          <Modal.Title>Registeration successfull</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Go n Sign in first
+          <img src={tick}></img>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              setShowPage(false);
+            }}
+          >
+            OK
+          </button>
+        </Modal.Footer>
+      </Modal>
+      {/* /////////////////////////////// */}
       <div
         className="row text-light"
         style={{

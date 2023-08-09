@@ -13,7 +13,7 @@ function Home() {
   return (
     <div
       className="container-fluid bg-white " ////sticky-top bg-white
-      style={{ marginTop: 85 }}
+      style={{ marginTop: 84 }}
     >
       {/* ///////////////////////////Carousel///////////////////////////////////// */}
       <Carousel

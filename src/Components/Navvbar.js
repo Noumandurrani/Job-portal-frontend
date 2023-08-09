@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 import JobDetail from "./HomeComp/JobDetail";
 import SignIn from "./SignIn";
 import { useState } from "react";
+import SignOut from "./SignOut";
+import { useEffect } from "react";
+import axios from "axios";
 
 function Navvbar() {
   let jobList = "jobs";
@@ -11,6 +14,10 @@ function Navvbar() {
   let testimonial = "test";
   let jobDetail = "detail";
   const [showSignIn, setShowSignIn] = useState(false);
+  const [showSignOut, setShowSignOut] = useState(false);
+  // const [userData, setUserData] = useState("")
+  const [role, setRole] = useState(localStorage.getItem("role"));
+
   return (
     <div>
       <Navbar
@@ -74,8 +81,29 @@ function Navvbar() {
                 </Link>
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Item className="d-flex justify-content-center align-items-center fw-medium">
-              <Link
+            <Nav.Item className="d-flex justify-content-center  align-items-center fw-medium">
+              {localStorage.getItem("isLoggedIn") ? (
+                <Link
+                  className="nav-link"
+                  onClick={(e) => {
+                    setShowSignOut(true);
+                  }}
+                >
+                  <i className="bi bi-person fs-5 text-success me-2"></i>
+                  Log out
+                </Link>
+              ) : (
+                <Link
+                  className="nav-link"
+                  onClick={(e) => {
+                    setShowSignIn(true);
+                  }}
+                >
+                  <i className="bi bi-person fs-5 fw-bolder text-success me-2"></i>
+                  Sign in
+                </Link>
+              )}
+              {/* <Link
                 className="nav-link"
                 onClick={(e) => {
                   setShowSignIn(true);
@@ -83,16 +111,29 @@ function Navvbar() {
               >
                 <i className="bi bi-person fs-5 text-success me-2"></i>
                 Sign in
-              </Link>
+              </Link> */}
             </Nav.Item>
             <Nav.Item className="btn btn-success fw-bolder text-light rounded-0 px-lg-5 py-4 d-none d-lg-block">
-              <Link to="/postjob" className="nav-link text-white">
-                Post A Job <i className="fa fa-arrow-right ms-3"></i>
-              </Link>
+              {localStorage.getItem("role") == "candidate" ? (
+                <Link
+                  to={`/joblist/${jobList}`}
+                  className="nav-link text-white"
+                >
+                  Go for Job <i className="fa fa-arrow-right ms-3"></i>
+                </Link>
+              ) : (
+                <Link to="/postjob" className="nav-link text-white">
+                  Post A Job <i className="fa fa-arrow-right ms-3"></i>
+                </Link>
+              )}
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
+      <SignOut
+        showSignOut={showSignOut}
+        setShowSignOut={setShowSignOut}
+      ></SignOut>
       <SignIn showSignIn={showSignIn} setShowSignIn={setShowSignIn}></SignIn>
     </div>
   );

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import SignIn from "./SignIn";
 
 // CSS Modules, react-datepicker-cssmodules.css//
 // import "react-datepicker/dist/react-datepicker-cssmodules.css";
@@ -24,9 +25,20 @@ function PostAJob() {
   const [compDes, setcompDes] = useState("");
   const [compLogo, setCompLogo] = useState("");
   const [vacany, setVacancy] = useState("");
+  const [showSignIn, setShowSignIn] = useState(false);
 
   const handleJobPost = (e) => {
     e.preventDefault();
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/job/categ/", {
+        jobCategory: jobCateg,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     const formData = new FormData();
     formData.append("jobTitle", jobTitle);
     formData.append("jobLocation", jobLocation);
@@ -44,7 +56,9 @@ function PostAJob() {
     formData.append("companyDescription", compDes);
     formData.append("companyLogo", compLogo);
     formData.append("vacancy", vacany);
-
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+    };
     axios
       .post("http://127.0.0.1:5000/jobportal/api/post/job", formData)
       .then((res) => {
@@ -54,8 +68,9 @@ function PostAJob() {
         console.error(err);
       });
   };
+
   return (
-    <div className="container-fluid" style={{ marginTop: 85 }}>
+    <div className="container-fluid" style={{ marginTop: 84 }}>
       <div
         className="row text-light"
         style={{
@@ -100,6 +115,26 @@ function PostAJob() {
       </div>
       {/* <h4>PostAJob</h4> */}
       <div className="container mb-5">
+        {!localStorage.getItem("isLoggedIn") && (
+          <div className="d-flex justify-content-center align-items-center mb-4  text-center p-2">
+            <h4>Haven't you</h4>
+            <Link
+              className="d-inline-flex align-items-center btn bg-black text-light shadow-0 ms-3 ps-3 pe-4 pt-1"
+              style={{ cursor: "default" }}
+              // onClick={(e) => {
+              //   setShowSignIn(true);
+              // }}
+            >
+              <i className="bi bi-person fs-3 me-1"></i>
+              Sign In first
+            </Link>
+            {/* <SignIn
+              showSignIn={showSignIn}
+              setShowSignIn={setShowSignIn}
+            ></SignIn> */}
+          </div>
+        )}
+
         <h4 className="fw-bold">Job Informations</h4>
         <form onSubmit={handleJobPost}>
           <div className="row g-3">
@@ -170,6 +205,10 @@ function PostAJob() {
                 <option>Engineering</option>
                 <option>Human Resources</option>
                 <option>Marketing</option>
+                <option>Sales & Communication</option>
+                <option>Teaching & Education</option>
+                <option>Design & Creative</option>
+
                 <option>R&D</option>
               </select>
             </div>
@@ -317,12 +356,27 @@ function PostAJob() {
               ></input>
             </div>
           </div>
-          <input
-            type="submit"
-            value={"Post A Job"}
-            className="btn btn-success rounded-0"
-            style={{ height: "50px", width: "150px" }}
-          ></input>
+          {localStorage.getItem("isLoggedIn") ? (
+            <input
+              type="submit"
+              value={"Post A Job"}
+              className="btn btn-success rounded-0"
+              style={{ height: "50px", width: "150px" }}
+            ></input>
+          ) : (
+            <abbr
+              title="Sign In first"
+              className="d-flex btn shadow-0 border-0 bg-secondary justify-content-center text-center rounded-0 align-items-center"
+              style={{
+                height: "50px",
+                width: "150px",
+                cursor: "not-allowed",
+                textDecoration: "none",
+              }}
+            >
+              Post A Job
+            </abbr>
+          )}
         </form>
       </div>
     </div>

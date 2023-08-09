@@ -2,42 +2,83 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal, Nav } from "react-bootstrap";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+import tick from "./Images/tick.png";
+
 function SignIn({ showSignIn, setShowSignIn }) {
   const navgate = useNavigate();
-
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [role, setRole] = useState("candidate");
-  // const [phone, setPhone] = useState("");
-  // const [show, setShow] = useState(true);
-  // const handleSignUp = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .post("http://127.0.0.1:5000/jobportal/api/add/user", {
-  //       name: name,
-  //       email: email,
-  //       password: password,
-  //       role: role,
-  //       phone: phone,
-  //       confirmPassword: confirmPassword,
-  //       // terms_condition: terms,
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //     });
-  // };
+  const [showPage, setShowPage] = useState(false);
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/login/user", {
+        email: email,
+        password: password,
+        role: role,
+      })
+      .then((res) => {
+        console.log(res.data);
+        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("role", res.data.data.role);
+        console.log(localStorage.getItem("role"));
+        // localStorage.setItem("userId", req.data.data._id);
+        // console.log(localStorage.getItem("userId"));
+        setShowSignIn(false);
+        setShowPage(true);
+        navgate("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   const handleClose = (e) => {
     setShowSignIn(false);
+    // setShowPage(false);
   };
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowPage(true);
+  //   }, 3000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, []);
   return (
     <div
     // className="container-xxl" style={{ marginTop: 85 }}
     >
+      <Modal
+        style={{
+          zIndex: 1000000000,
+          marginTop: "100px",
+        }}
+        className="modal"
+        show={showPage}
+        onHide={() => {
+          setShowPage(false);
+        }}
+      >
+        <Modal.Header>
+          <Modal.Title>Logged In sucessfully</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <img src={tick} style={{ height: "260px", overflow: "none" }}></img>
+          {/* <p>Thanks</p> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              setShowPage(false);
+            }}
+          >
+            OK
+          </button>
+        </Modal.Footer>
+      </Modal>
       <Modal
         // tabIndex="-1"
         style={{
@@ -47,7 +88,7 @@ function SignIn({ showSignIn, setShowSignIn }) {
         show={showSignIn}
         onHide={handleClose}
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton={true}>
           <Modal.Title className="fs-5">Login to Your Account</Modal.Title>
         </Modal.Header>
         <Modal.Body className="">
@@ -112,14 +153,16 @@ function SignIn({ showSignIn, setShowSignIn }) {
               </Nav.Item>
             </Nav>
           </fieldset>
-          <form
-          // onSubmit={handleSignUp}
-          >
+          <form onSubmit={handleSignIn}>
             <div className="col-lg-12">
               <label className=" text-secondary">Email Address:</label>
               <input
                 placeholder=""
                 type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 className="form-control"
                 style={{ height: "50px" }}
               ></input>
@@ -129,6 +172,10 @@ function SignIn({ showSignIn, setShowSignIn }) {
               <input
                 placeholder=""
                 type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 className="form-control"
                 style={{ height: "50px" }}
               ></input>

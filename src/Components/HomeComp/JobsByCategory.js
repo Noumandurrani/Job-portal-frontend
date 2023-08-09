@@ -4,15 +4,27 @@ import job3 from "../Images/job3.jpeg";
 // import { CDBAnimation, CDBContainer } from "cdbreact";
 import Fade from "react-bootstrap/Fade";
 import AOS from "aos";
+import axios from "axios";
 function JobsByCategory() {
   const [isHovered, setIsHovered] = useState(false);
   const { id } = useParams();
   const [open, setOpen] = useState(false);
+  const [showBycateg, setShowByCateg] = useState([]);
+  const [categ, setCateg] = useState([]);
   useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/jobportal/api/get/categ")
+      .then((res) => {
+        console.log(res.data.data);
+        setCateg(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     AOS.init();
   }, []);
   return (
-    <div className="container-fluid bg-white" style={{ marginTop: 85 }}>
+    <div className="container-fluid bg-white" style={{ marginTop: 84 }}>
       {id === "categ" && (
         <div
           className="row text-light"
@@ -96,8 +108,8 @@ function JobsByCategory() {
       <br></br>
       <br></br>
       <div className="container">
-        <div className="row">
-          <div className="col-lg-3 mb-4" style={{}}>
+        <div className="row g-3">
+          {/* <div className="col-lg-3 mb-4" style={{}}>
             <div
               data-aos="fade-up"
               data-aos-delay="150"
@@ -123,21 +135,24 @@ function JobsByCategory() {
               <h6 className="pb-2 shadow-0">Marketing</h6>
               <p className="text-success  shadow-0">123 Vacancy</p>
             </div>
-          </div>
-
-          <div
-            className="col-lg-3"
-            data-aos="fade-up"
-            data-aos-delay="250"
-            data-aos-offset="200"
-          >
-            <div className="shadow border p-4" style={{ cursor: "pointer" }}>
-              <i className="text-success fa fa-arrow-right fs-1 fw-bold pb-3"></i>
-              <h6 className="pb-2">Marketing</h6>
-              <p className="text-success">123 Vacancy</p>
+          </div> */}
+          {categ.map((item) => (
+            <div
+              className="col-lg-3"
+              data-aos="fade-up"
+              data-aos-delay="250"
+              data-aos-offset="200"
+              key={item.jobCategory}
+            >
+              <div className="shadow border p-4" style={{ cursor: "pointer" }}>
+                <i className="text-success fa fa-arrow-right fs-1 fw-bold pb-3"></i>
+                <h6 className="pb-2">{item.jobCategory}</h6>
+                <p className="text-success">123 Vacancy</p>
+              </div>
             </div>
-          </div>
-          <div
+          ))}
+
+          {/* <div
             className="col-lg-3"
             data-aos="fade-up"
             data-aos-delay="350"
@@ -178,8 +193,8 @@ function JobsByCategory() {
               <h6 className="pb-2">Marketing</h6>
               <p className="text-success">123 Vacancy</p>
             </div>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="col-lg-3"
             data-aos="fade-up"
             data-aos-delay="250"
@@ -193,8 +208,8 @@ function JobsByCategory() {
               <h6 className="pb-2">Marketing</h6>
               <p className="text-success">123 Vacancy</p>
             </div>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="col-lg-3"
             data-aos="fade-up"
             data-aos-delay="350"
@@ -223,7 +238,7 @@ function JobsByCategory() {
               <h6 className="pb-2">Marketing</h6>
               <p className="text-success">123 Vacancy</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <br></br>
