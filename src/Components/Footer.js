@@ -1,8 +1,45 @@
 import AOS from "aos";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 function Footer() {
+  const [jobData, setJobData] = useState([]);
+  const [candidate, setCandidate] = useState([]);
+  const [employer, setEmployer] = useState([]);
+
   useEffect(() => {
+    axios
+      .get("http://127.0.0.1:5000/jobportal/api/get/jobs")
+      .then((res) => {
+        console.log(res.data);
+        setJobData(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/get/role", {
+        role: "candidate",
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setCandidate(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/get/role", {
+        role: "employer",
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        setEmployer(res.data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     AOS.init();
   }, []);
   return (
@@ -10,12 +47,35 @@ function Footer() {
       data-aos="fade"
       data-aos-delay="150"
       data-aos-offset="20"
-      className="container-fluid pt-5"
+      className="container-fluid pt-2"
       style={{ backgroundColor: "#2b3940" }}
     >
-      <div className="container text-white pt-5 pb-5">
+      <div className="container text-white pb-5">
         {/* <h2>Footer</h2> */}
-        <div className="row">
+        {/* ////////////////////////////////////// */}
+        <div className="row justify-content-end text-center pt-3 pb-2">
+          <div className="col-lg-2">
+            <strong>
+              <div className="fs-2">{jobData.length}</div>
+              <div className="text-secondary">Jobs Posted</div>
+            </strong>
+          </div>
+          <div className="col-lg-2" style={{ borderLeft: "2px solid gray" }}>
+            <strong>
+              <div className="fs-2">{candidate.length}</div>
+              <div className="text-secondary">Candidates</div>
+            </strong>
+          </div>
+          <div className="col-lg-2" style={{ borderLeft: "2px solid gray" }}>
+            <strong>
+              <div className="fs-2">{employer.length}</div>
+              <div className="text-secondary">Employers</div>
+            </strong>
+          </div>
+        </div>
+        <hr></hr>
+        {/* /////////////////////////////// */}
+        <div className="row pt-3">
           <div className="col-lg-3">
             <h4 className="pb-3 fw-bolder">Company</h4>
             <div

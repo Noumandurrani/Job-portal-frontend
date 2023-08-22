@@ -17,6 +17,7 @@ function Navvbar() {
   const [showSignOut, setShowSignOut] = useState(false);
   // const [userData, setUserData] = useState("")
   const [role, setRole] = useState(localStorage.getItem("role"));
+  const [showUserData, setShowUserData] = useState({});
 
   return (
     <div>
@@ -87,6 +88,19 @@ function Navvbar() {
                   className="nav-link"
                   onClick={(e) => {
                     setShowSignOut(true);
+                    axios
+                      .get(
+                        `http://127.0.0.1:5000/jobportal/api/get/user/${localStorage.getItem(
+                          "userId"
+                        )}`
+                      )
+                      .then((res) => {
+                        console.log(res.data.data);
+                        setShowUserData(res.data.data);
+                      })
+                      .catch((err) => {
+                        console.error(err);
+                      });
                   }}
                 >
                   <i className="bi bi-person fs-5 text-success me-2"></i>
@@ -133,6 +147,7 @@ function Navvbar() {
       <SignOut
         showSignOut={showSignOut}
         setShowSignOut={setShowSignOut}
+        showUserData={showUserData}
       ></SignOut>
       <SignIn showSignIn={showSignIn} setShowSignIn={setShowSignIn}></SignIn>
     </div>

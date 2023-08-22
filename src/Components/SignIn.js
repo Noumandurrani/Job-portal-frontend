@@ -10,6 +10,8 @@ function SignIn({ showSignIn, setShowSignIn }) {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("candidate");
   const [showPage, setShowPage] = useState(false);
+  const [showUserData, setShowUserData] = useState();
+
   const handleSignIn = (e) => {
     e.preventDefault();
     axios
@@ -23,11 +25,22 @@ function SignIn({ showSignIn, setShowSignIn }) {
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("role", res.data.data.role);
         console.log(localStorage.getItem("role"));
-        // localStorage.setItem("userId", req.data.data._id);
-        // console.log(localStorage.getItem("userId"));
+        localStorage.setItem("userId", res.data.data._id);
+        console.log("user_id:", localStorage.getItem("userId"));
         setShowSignIn(false);
         setShowPage(true);
         navgate("/");
+        // axios
+        //   .get(
+        //     "http://127.0.0.1:5000/jobportal/api/get/user/" + res.data.data._id
+        //   )
+        //   .then((res) => {
+        //     console.log(res.data.data);
+        //     setShowUserData(res.data.data.name);
+        //   })
+        //   .catch((err) => {
+        //     console.error(err);
+        //   });
       })
       .catch((err) => {
         console.error(err);
@@ -37,6 +50,21 @@ function SignIn({ showSignIn, setShowSignIn }) {
     setShowSignIn(false);
     // setShowPage(false);
   };
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "http://127.0.0.1:5000/jobportal/api/get/user/" +
+  //         localStorage.getItem("userId")
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data.data);
+  //       // setShowUserData(res.data.data.name);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, []);
+
   // useEffect(() => {
   //   const timer = setTimeout(() => {
   //     setShowPage(true);

@@ -4,9 +4,22 @@ import job3 from "../Images/job3.jpeg";
 import job2 from "../Images/job2.jpeg";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import tick from "../Images/tick.png";
+import { Modal, Nav } from "react-bootstrap";
 function JobDetail() {
   const [jobDetail, setJobDetail] = useState({});
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [portfolio, setPortfolio] = useState("");
+  const [resume, setResume] = useState("");
+  const [coverLetter, setCoverLetter] = useState("");
+  // const [applyJob, setApplyJob] = useState([]);
+  const [userid, setUserid] = useState("");
+  const navgate = useNavigate();
+  const [showPage, setShowPage] = useState(false);
   const { id } = useParams();
+  let jobList = "jobs";
   useEffect(() => {
     axios
       .get("http://127.0.0.1:5000/jobportal/api/get/job/" + id)
@@ -17,11 +30,92 @@ function JobDetail() {
       .catch((err) => {
         console.error(err);
       });
+    //////////////////////////////////////////
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/get/applied/job", {
+        jobId: id,
+      })
+      .then((res) => {
+        // console.log(res.data.data);
+        // setApplyJob(res.data.data);
+        const app = res.data.data;
+        console.log("app:", app);
+        const jobdata = app.find(
+          (item) => item.userId === localStorage.getItem("userId")
+        );
+        // setUserid(res.data.data.userId);
+        console.log(jobdata.userId);
+        // console.log("job:id:", res.data.data.userId);
+        // setJobDetail(res.data.data);
+        setUserid(jobdata.userId);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     AOS.init();
   }, []);
+  const handleApplyJob = (e) => {
+    e.preventDefault();
+    const config = {
+      headers: { "content-type": "multipart/form-data" },
+    };
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("portfolio", portfolio);
+    formData.append("resume", resume);
+    formData.append("coverLetter", coverLetter);
+    formData.append("userId", localStorage.getItem("userId"));
+    formData.append("jobId", id);
+    axios
+      .post("http://127.0.0.1:5000/jobportal/api/apply/job", formData)
+      .then((res) => {
+        console.log(res.data.data);
+        // setApplyJob(res.data.data);
+        localStorage.setItem("userIdForApplyJob", res.data.data.userId);
+        localStorage.setItem("jobIdForApplyJob", res.data.data.jobId);
+        console.log("userid : ", res.data.data.userId);
+        console.log("jobid", res.data.data.jobId);
+        setShowPage(true);
+        // navgate(`/`);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   return (
     <div className="container-fluid bg-white" style={{ marginTop: 84 }}>
       {/* <h3>JobDetail</h3> */}
+      <Modal
+        style={{
+          zIndex: 100000000000,
+          marginTop: "100px",
+        }}
+        className="modal"
+        show={showPage}
+        onHide={() => {
+          setShowPage(false);
+        }}
+      >
+        <Modal.Header>
+          <Modal.Title>Applied sucessfully</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <img src={tick} style={{ height: "260px", overflow: "none" }}></img>
+          {/* <p>Thanks</p> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              setShowPage(false);
+            }}
+          >
+            OK
+          </button>
+        </Modal.Footer>
+      </Modal>
       <div
         className="row text-light"
         style={{
@@ -142,13 +236,17 @@ function JobDetail() {
             {/* ////////////////// */}
             <div className="mb-5">
               <h4 className="mb-4 fw-bolder">Apply For The Job</h4>
-              <form className="">
+              <form className="" onSubmit={handleApplyJob}>
                 <div className="row g-3">
                   <div className="col-lg-6">
                     <input
                       type="text"
                       className="form-control"
                       placeholder="Your Name"
+                      value={name}
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -156,6 +254,10 @@ function JobDetail() {
                       type="email"
                       className="form-control"
                       placeholder="Your Email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }}
                     ></input>
                   </div>
                   <div className="col-lg-6">
@@ -163,26 +265,57 @@ function JobDetail() {
                       type="text"
                       className="form-control"
                       placeholder="Portfolio Website"
+                      value={portfolio}
+                      onChange={(e) => {
+                        setPortfolio(e.target.value);
+                      }}
                     ></input>
-                  </div>{" "}
+                  </div>
                   <div className="col-lg-6">
                     <input
                       type="file"
                       className="form-control"
                       placeholder="Your Name"
+                      onChange={(e) => {
+                        setResume(e.target.files[0]);
+                      }}
                     ></input>
                   </div>
                   <div className="col-lg-12">
                     <textarea
                       className="form-control"
+                      style={{ height: 100 }}
                       placeholder="Cover Letter"
+                      value={coverLetter}
+                      onChange={(e) => {
+                        setCoverLetter(e.target.value);
+                      }}
                     ></textarea>
                   </div>
                   <div className="col-lg-12">
-                    {localStorage.getItem("isLoggedIn") ? (
-                      <button className="btn btn-success form-control">
-                        Apply Now
-                      </button>
+                    {localStorage.getItem("isLoggedIn") &&
+                    localStorage.getItem("role") == "candidate" ? (
+                      userid == localStorage.getItem("userId") ? (
+                        // &&
+                        // localStorage.getItem("jobIdForApplyJob") == id
+                        <abbr
+                          title="applied"
+                          className="btn shadow-0 bg-secondary form-control"
+                          style={{
+                            cursor: "not-allowed",
+                            textDecoration: "none",
+                          }}
+                        >
+                          Applied
+                        </abbr>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="btn btn-success form-control"
+                        >
+                          Apply Now
+                        </button>
+                      )
                     ) : (
                       <abbr
                         title="Login first"

@@ -6,8 +6,20 @@ import JobsByCategory from "./Components/HomeComp/JobsByCategory";
 import JobsListing from "./Components/HomeComp/JobsListing";
 import CarouselClients from "./Components/HomeComp/CarouselClients";
 import AOS from "aos";
+import axios from "axios";
+import { useState } from "react";
 function Home() {
+  // const [jobData, setJobData] = useState([]);
   useEffect(() => {
+    // axios
+    //   .get("http://127.0.0.1:5000/jobportal/api/get/jobs")
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     setJobData(res.data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
     AOS.init();
   }, []);
   return (
@@ -53,7 +65,7 @@ function Home() {
           ></i>
         }
       >
-        <Carousel.Item className="slide" interval={3500}>
+        <Carousel.Item className="slide" interval={1500}>
           <div
             className="row text-light "
             style={{
@@ -190,6 +202,29 @@ function Home() {
           </div>
         </Carousel.Item>
       </Carousel>
+      {/* ////////////////////////// */}
+      {/* <div className="row justify-content-center text-center py-3">
+        <div className="col-lg-2">
+          <strong>
+            <div className="fs-2">{jobData.length}</div>
+            <div className="text-secondary">Jobs Posted</div>
+          </strong>
+        </div>
+        <div className="col-lg-2" style={{ borderLeft: "2px solid gray" }}>
+          <strong>
+            <div className="fs-2">{jobData.length}</div>
+            <div className="text-secondary">Candidates</div>
+          </strong>
+        </div>
+        <div className="col-lg-2" style={{ borderLeft: "2px solid gray" }}>
+          <strong>
+            <div className="fs-2">{jobData.length}</div>
+            <div className="text-secondary">Employers</div>
+          </strong>
+        </div>
+      </div> */}
+
+      {/* //////////////////////////////// */}
       {/* //////////////////////////////////////////////////////////////// */}
       {/* <br></br>
       <br></br>
@@ -243,8 +278,8 @@ function Home() {
         className="row bg-success"
       >
         <div className="container-fluid">
-          <div className="container">
-            <div className="row justify-content-center  pt-4 pb-4">
+          <form className="container">
+            <div className="row justify-content-center g-3 py-3">
               <div className="col-lg-3">
                 <input className=" form-control" placeholder="keywords"></input>
               </div>
@@ -264,7 +299,7 @@ function Home() {
               <button className="col-lg-2 btn btn-dark">Search</button>
               {/* </div> */}
             </div>
-          </div>
+          </form>
         </div>
       </div>
       <br></br>

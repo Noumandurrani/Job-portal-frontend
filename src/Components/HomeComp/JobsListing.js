@@ -6,22 +6,95 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import AOS from "aos";
 function JobsListing() {
+  //////////////////
+  const [fullTime, setFullTime] = useState("Full Time");
+  const [partTime, setPartTime] = useState("Part Time");
+  const [all, setAll] = useState(true);
+
+  // console.log(type);
+  // const [typeAll, setTypeAll] = useState(true);
+  // const [typeFull, setTypeFull] = useState(false);
+  // const [typePart, setTypePart] = useState(false);
+
+  //////////////////
   const [jobData, setJobData] = useState([]);
   const [browse, setBrowse] = useState(false);
+  const { id, categ } = useParams();
+  console.log("id:", id);
+  // console.log("category:", categ);
+
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/jobportal/api/get/jobs")
-      .then((res) => {
-        console.log(res.data.data);
-        setJobData(res.data.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (categ) {
+      axios
+        .post("http://127.0.0.1:5000/jobportal/api/get/jobs/categ", {
+          jobCategory: categ,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          setJobData(res.data.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (all) {
+      axios
+        .get("http://127.0.0.1:5000/jobportal/api/get/jobs")
+        .then((res) => {
+          console.log(res.data);
+          setJobData(res.data.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+
     AOS.init();
   }, []);
+
+  if (!categ) {
+    var handleAll = (e) => {
+      axios
+        .get("http://127.0.0.1:5000/jobportal/api/get/jobs")
+        .then((res) => {
+          console.log(res.data);
+          setJobData(res.data.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+    var handlePartTime = (e) => {
+      setAll(false);
+
+      axios
+        .post("http://127.0.0.1:5000/jobportal/api/get/jobs/type", {
+          jobType: partTime,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          setJobData(res.data.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+    var handleFullTime = (e) => {
+      setAll(false);
+      axios
+        .post("http://127.0.0.1:5000/jobportal/api/get/jobs/type", {
+          jobType: fullTime,
+        })
+        .then((res) => {
+          console.log(res.data.data);
+          setJobData(res.data.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    };
+  }
+
   const [click, setClick] = useState(false);
-  const { id } = useParams();
   // console.log(id);
   if (browse == false) {
     var listOfJobs = jobData.slice(-3);
@@ -32,7 +105,7 @@ function JobsListing() {
 
   return (
     <div className="container-fluid bg-white" style={{ marginTop: 84 }}>
-      {id === "jobs" && (
+      {(id || categ) && (
         <div
           className="row text-light"
           style={{
@@ -79,36 +152,59 @@ function JobsListing() {
         data-aos="fade-up"
         data-aos-delay="150"
         data-aos-offset="100"
-        className="text-center fw-bolder"
+        className="text-center fw-bolder mb-4"
       >
-        Job Listing
+        Job List
       </h1>
       {/* <br></br> */}
       {/* <br></br> */}
-      <div
-        data-aos="fade-up"
-        data-aos-delay="250"
-        data-aos-offset="100"
-        className="d-flex justify-content-center"
-      >
-        <ul className="nav nav-underline d-inline-flex justify-content-center align-items-center border-bottom mb-5">
-          <li className="nav-item">
-            <a href="#" className="nav-link text-dark">
-              Featured
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="nav-link text-dark">
-              Full Time
-            </a>
-          </li>
-          <li className="nav-item">
-            <a href="#" className="nav-link text-dark">
-              Part Time
-            </a>
-          </li>
-        </ul>
-      </div>
+      {!categ ? (
+        <div
+          data-aos="fade-up"
+          data-aos-delay="250"
+          data-aos-offset="100"
+          className="d-flex justify-content-center"
+        >
+          <ul className="nav nav-underline d-inline-flex justify-content-center align-items-center border-bottom mb-5">
+            <li className="nav-item">
+              <Link
+                // href="#"
+                className="nav-link  text-dark px-4"
+                onClick={handleAll}
+              >
+                All
+              </Link>
+            </li>
+            <li className="nav-item active">
+              <Link
+                // href="#"
+                className="nav-link text-dark"
+                // onChange={}
+                onClick={
+                  //   // setType("Full Time");
+                  handleFullTime
+                }
+              >
+                Full Time
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link text-dark"
+                // onChange={}
+                onClick={
+                  // setType("Part Time");
+                  handlePartTime
+                }
+              >
+                Part Time
+              </Link>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        ""
+      )}
       <div
         data-aos="fade-up"
         data-aos-delay="250"
@@ -254,7 +350,7 @@ function JobsListing() {
         data-aos-offset="50"
         className="d-flex justify-content-center"
       >
-        {id == "jobs" ? (
+        {id || categ ? (
           browse == false && (
             <button
               className="btn btn-success pt-3 pb-3"

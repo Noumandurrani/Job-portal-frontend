@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import job3 from "./Images/job3.jpeg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import SignIn from "./SignIn";
+import { Modal } from "react-bootstrap";
+import tick from "./Images/tick.png";
 
 // CSS Modules, react-datepicker-cssmodules.css//
 // import "react-datepicker/dist/react-datepicker-cssmodules.css";
 function PostAJob() {
+  const navgate = useNavigate();
   const [jobTitle, setJobTitle] = useState("");
   const [jobLocation, setJobLocation] = useState("");
   const [jobEmail, setJobEmail] = useState("");
@@ -26,6 +29,7 @@ function PostAJob() {
   const [compLogo, setCompLogo] = useState("");
   const [vacany, setVacancy] = useState("");
   const [showSignIn, setShowSignIn] = useState(false);
+  const [showPage, setShowPage] = useState(false);
 
   const handleJobPost = (e) => {
     e.preventDefault();
@@ -63,6 +67,8 @@ function PostAJob() {
       .post("http://127.0.0.1:5000/jobportal/api/post/job", formData)
       .then((res) => {
         console.log(res.data);
+        // navgate("/");
+        setShowPage(true);
       })
       .catch((err) => {
         console.error(err);
@@ -71,6 +77,36 @@ function PostAJob() {
 
   return (
     <div className="container-fluid" style={{ marginTop: 84 }}>
+      <Modal
+        style={{
+          zIndex: 1000000000,
+          marginTop: "100px",
+        }}
+        className="modal"
+        show={showPage}
+        onHide={() => {
+          setShowPage(false);
+        }}
+      >
+        <Modal.Header>
+          <Modal.Title>Job post sucessfully</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <img src={tick} style={{ height: "260px", overflow: "none" }}></img>
+          {/* <p>Thanks</p> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="btn btn-success"
+            onClick={() => {
+              setShowPage(false);
+            }}
+          >
+            OK
+          </button>
+        </Modal.Footer>
+      </Modal>
       <div
         className="row text-light"
         style={{
@@ -203,7 +239,7 @@ function PostAJob() {
                 <option>Categories</option>
                 <option>IT Sector</option>
                 <option>Engineering</option>
-                <option>Human Resources</option>
+                <option>Human Resource</option>
                 <option>Marketing</option>
                 <option>Sales & Communication</option>
                 <option>Teaching & Education</option>

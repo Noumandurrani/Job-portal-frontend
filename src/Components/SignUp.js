@@ -57,8 +57,7 @@ function SignUp() {
           <Modal.Title>Registeration successfull</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Go n Sign in first
-          <img src={tick}></img>
+          <img src={tick} style={{ height: "260px", overflow: "none" }}></img>
         </Modal.Body>
         <Modal.Footer>
           <button

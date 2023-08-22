@@ -108,7 +108,12 @@ function JobsByCategory() {
       <br></br>
       <br></br>
       <div className="container">
-        <div className="row g-3">
+        <div
+          className="row g-3"
+          data-aos="fade-up"
+          data-aos-delay="250"
+          data-aos-offset="200"
+        >
           {/* <div className="col-lg-3 mb-4" style={{}}>
             <div
               data-aos="fade-up"
@@ -138,17 +143,28 @@ function JobsByCategory() {
           </div> */}
           {categ.map((item) => (
             <div
-              className="col-lg-3"
+              className="col-lg-3 "
               data-aos="fade-up"
               data-aos-delay="250"
               data-aos-offset="200"
               key={item.jobCategory}
             >
-              <div className="shadow border p-4" style={{ cursor: "pointer" }}>
-                <i className="text-success fa fa-arrow-right fs-1 fw-bold pb-3"></i>
-                <h6 className="pb-2">{item.jobCategory}</h6>
-                <p className="text-success">123 Vacancy</p>
-              </div>
+              <Link to={"/jobbycateg/" + item.jobCategory} className="nav-link">
+                <div
+                  className="  hover-shadow border p-4"
+                  style={{ cursor: "pointer" }}
+                  onMouseOver={(e) => {
+                    setIsHovered(true);
+                  }}
+                  onMouseOut={(e) => {
+                    setIsHovered(false);
+                  }}
+                >
+                  <i className="text-success fa fa-arrow-right fs-1 fw-bold pb-3"></i>
+                  <h6 className="pb-2">{item.jobCategory}</h6>
+                  <p className="text-success">123 Vacancy</p>
+                </div>
+              </Link>
             </div>
           ))}
 

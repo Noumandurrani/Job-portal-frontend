@@ -11,6 +11,7 @@ import JobDetail from "./Components/HomeComp/JobDetail";
 import SignUp from "./Components/SignUp";
 // import SignIn from "./Components/SignIn";
 import PostAJob from "./Components/PostAJob";
+import SrchJobByCateg from "./Components/HomeComp/JobCateg/SrchJobByCateg";
 function App() {
   return (
     <div className="container-fluid bg-white p-0">
@@ -47,6 +48,10 @@ function App() {
           ></Route>
           <Route path="/signup" element={<SignUp></SignUp>}></Route>
           <Route path="/postjob" element={<PostAJob></PostAJob>}></Route>
+          <Route
+            path="/jobbycateg/:categ"
+            element={<JobsListing></JobsListing>}
+          ></Route>
         </Routes>
         <Footer></Footer>
       </Router>

@@ -3,9 +3,27 @@ import axios from "axios";
 import { Modal, Nav } from "react-bootstrap";
 import { NavLink, Link, useNavigate, Form } from "react-router-dom";
 import tick from "./Images/tick.png";
-function SignOut({ showSignOut, setShowSignOut }) {
+function SignOut({ showSignOut, setShowSignOut, showUserData }) {
   const navgate = useNavigate();
   const [showPage, setShowPage] = useState(false);
+  // const [showUserData, setShowUserData] = useState();
+  // const [userid, setUserid] = useState(localStorage.getItem("userId"));
+  // console.log(localStorage.getItem("userId"));
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       `http://127.0.0.1:5000/jobportal/api/get/user/${localStorage.getItem(
+  //         "userId"
+  //       )}`
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       // setShowUserData(res.data.data.name);
+  //     })
+  //     .catch((err) => {
+  //       console.error(err);
+  //     });
+  // }, []);
   const handleClose = (e) => {
     setShowSignOut(false);
   };
@@ -47,7 +65,7 @@ function SignOut({ showSignOut, setShowSignOut }) {
         onHide={handleClose}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Name</Modal.Title>
+          <Modal.Title>Hey {showUserData.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>you want to be log out.</p>
